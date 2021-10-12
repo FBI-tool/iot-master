@@ -29,4 +29,10 @@ exports.post = curd.list("tunnel", {
         foreign: 'devices.device_id',
         noUnwind: true,
     }],
+    after: async ctx => {
+        ctx.body.data.forEach(d => {
+            if (d.project)
+                d.project = d.project.map(p => p.name);
+        })
+    },
 });
